@@ -1,0 +1,41 @@
+﻿@model BloodDoner.Models.Blood
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@{ 
+    string[] arr = { "A+","O+","B+", "B-", "A-", "AB+", "AB-"};
+}
+<style>
+   .drop{
+        width:10%;
+        height:30%;
+    }
+</style>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Blood</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.blood, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.ValidationMessageFor(model => model.blood, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.blood, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.blood, new SelectList (arr),new { @class = "drop" } )
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+

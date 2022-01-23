@@ -1,0 +1,60 @@
+﻿@model BloodDoner.Models.Blood
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Blood</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.blood, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.blood, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.blood, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" id="b1"> show</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+      $(document).ready(
+          function () {
+
+              
+                $("#b1").click(function () {
+                    var url = "";
+                    $.get(url, function (data, status) {
+                        if (status == "success") {
+                            var s = "<center><table  >";
+
+                            for (var i = 0; i < data.length; i++) {
+
+
+                                var s2 = "<tr><td >" + data[i].Id + "</td><td>" + data[i].Name + "</td><td>" +
+                                    data[i].Address + "</td><td>" + data[i].Address +"</td><td>"+  data[i].City +
+                                   "</td><td>" +  data[i].Age +"</td><td>"  +  data[i].Gender +"</td><td>"  +  data[i].BloodGroup +
+                                  "</td><td>"  +  data[i].Date +"</td><td>"
+                                    +  data[i].Created_Emp +
+                                    "</td> </tr>";
+                                s += s2;
+
+
+                            }
+                            s += "</table><center>";
+                            $("#div1").html(s);
+
+                        }
+                    });
+                });
+            });
+
+</script>
+
+
